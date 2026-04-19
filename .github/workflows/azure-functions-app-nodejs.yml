@@ -38,13 +38,16 @@ jobs:
       uses: actions/checkout@v4
 
     - name: 'Validate required configuration'
+      env:
+        APP_NAME: ${{ vars.AZURE_FUNCTIONAPP_NAME }}
+        HAS_PUBLISH_PROFILE: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE != '' }}
       shell: pwsh
       run: |
-        if (-not "${{ vars.AZURE_FUNCTIONAPP_NAME }}") {
+        if (-not $env:APP_NAME.Trim()) {
           Write-Error "Missing required repository variable: AZURE_FUNCTIONAPP_NAME. Go to Settings > Secrets and variables > Actions > Variables and add AZURE_FUNCTIONAPP_NAME with your Azure Function App name."
           exit 1
         }
-        if (-not "${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}") {
+        if ($env:HAS_PUBLISH_PROFILE -ne 'true') {
           Write-Error "Missing required repository secret: AZURE_FUNCTIONAPP_PUBLISH_PROFILE. Go to Settings > Secrets and variables > Actions > Secrets and add AZURE_FUNCTIONAPP_PUBLISH_PROFILE with the publish profile XML from your Azure Function App."
           exit 1
         }
