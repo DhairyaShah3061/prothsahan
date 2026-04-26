@@ -53,7 +53,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, onMenuToggle }) => {
             <img
               src={logo}
               alt="Prothsahan"
-              className="h-12 w-auto sm:h-14 object-contain"
+              className="h-10 w-auto sm:h-12 object-contain"
             />
           </a>
 
