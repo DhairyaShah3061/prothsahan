@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import MobileMenu from './components/MobileMenu';
 import { useMobileMenu } from './hooks/useMobileMenu';
+import ServicesPage from './pages/ServicesPage';
 
 const SectionDivider: React.FC = () => (
   <div className="h-px bg-gradient-to-r from-transparent via-red-800/20 to-transparent" />
@@ -23,6 +24,11 @@ const SectionDivider: React.FC = () => (
 
 const App: React.FC = () => {
   const { isOpen, toggle, close } = useMobileMenu();
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+
+  if (path === '/services') {
+    return <ServicesPage />;
+  }
 
   return (
     <div className="bg-black text-[#F5F5F5] font-['DM_Sans'] text-[17px] leading-relaxed overflow-x-hidden cursor-none">

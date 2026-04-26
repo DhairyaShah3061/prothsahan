@@ -80,10 +80,10 @@ const Services: React.FC = () => {
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:[grid-auto-rows:1fr] gap-6 mt-14">
           {services.map((service, i) => (
-            <Reveal key={service.title} delay={((i % 3) + 1) as 0|1|2|3|4|5}>
-              <div className="group bg-white/5 backdrop-blur-md border border-white/[0.06] rounded-2xl p-8 relative overflow-hidden hover:border-[rgba(255,27,27,0.25)] hover:-translate-y-1.5 hover:shadow-[0_24px_48px_rgba(0,0,0,0.4)] transition-all duration-300">
+            <Reveal key={service.title} delay={((i % 3) + 1) as 0|1|2|3|4|5} className="h-full">
+              <div className="group h-full min-h-[280px] bg-white/5 backdrop-blur-md border border-white/[0.06] rounded-2xl p-8 relative overflow-hidden hover:border-[rgba(255,27,27,0.25)] hover:-translate-y-1.5 hover:shadow-[0_24px_48px_rgba(0,0,0,0.4)] transition-all duration-300">
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#FF1B1B] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
                 <div className="w-12 h-12 mb-5 bg-[rgba(255,27,27,0.1)] rounded-xl flex items-center justify-center text-[#FF1B1B]">
                   {service.icon}
@@ -94,6 +94,15 @@ const Services: React.FC = () => {
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={2} className="mt-12 flex justify-center">
+          <a
+            href="/services"
+            className="inline-flex items-center px-8 py-[14px] bg-[#FF1B1B] text-white rounded-full text-[15px] font-medium no-underline transition-all duration-200 hover:scale-[1.04] shadow-[0_0_20px_rgba(255,27,27,0.4),0_0_60px_rgba(255,27,27,0.15)] hover:shadow-[0_0_30px_rgba(255,27,27,0.6)] cursor-none"
+          >
+            Explore More
+          </a>
+        </Reveal>
       </div>
     </section>
   );

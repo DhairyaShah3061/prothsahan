@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import Reveal from './Reveal';
+import { supabase } from '../lib/supabase';
 
 const Contact: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: '',
     business: '',
@@ -18,9 +21,48 @@ const Contact: React.FC = () => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+
+    setSubmitError(null);
+    setIsSubmitting(true);
+
+    try {
+      if (!supabase) {
+        throw new Error('Supabase is not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
+      }
+
+      const { error } = await supabase.from('contact_submissions').insert([
+        {
+          name: form.name,
+          business: form.business,
+          email: form.email,
+          phone: form.phone || null,
+          challenge: form.challenge,
+          message: form.message || null,
+          source_page: 'homepage',
+        },
+      ]);
+
+      if (error) {
+        throw error;
+      }
+
+      setSubmitted(true);
+      setForm({
+        name: '',
+        business: '',
+        email: '',
+        phone: '',
+        challenge: '',
+        message: '',
+      });
+    } catch (error) {
+      setSubmitError('Could not send your request right now. Please try again in a moment.');
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const inputClass =
@@ -193,10 +235,15 @@ const Contact: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-4 bg-[#FF1B1B] text-white rounded-full text-base font-medium mt-2 hover:scale-[1.02] transition-transform duration-200 shadow-[0_0_20px_rgba(255,27,27,0.4)] cursor-none"
+                    disabled={isSubmitting}
+                    className="w-full py-4 bg-[#FF1B1B] disabled:opacity-70 disabled:cursor-not-allowed text-white rounded-full text-base font-medium mt-2 hover:scale-[1.02] transition-transform duration-200 shadow-[0_0_20px_rgba(255,27,27,0.4)] cursor-none"
                   >
-                    Send My Growth Request
+                    {isSubmitting ? 'Sending...' : 'Send My Growth Request'}
                   </button>
+
+                  {submitError && (
+                    <p className="text-[#ff8c8c] text-sm mt-3 text-center">{submitError}</p>
+                  )}
                 </form>
               ) : (
                 <div className="text-center py-8">

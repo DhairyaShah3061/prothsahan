@@ -30,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, onMenuToggle }) => {
 
   const navLinks = [
     { href: '#hero', label: 'Home' },
-    { href: '#services', label: 'Services' },
+    { href: '/services', label: 'Services' },
     { href: '#case-study', label: 'Our Work' },
     { href: '#team', label: 'About' },
     { href: '#contact', label: 'Contact' },
