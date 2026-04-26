@@ -4,7 +4,7 @@ import logo from '../assets/prothsahan_logo_web.png';
 const Footer: React.FC = () => {
   const navLinks = [
     { href: '#hero', label: 'Home' },
-    { href: '/services', label: 'Services' },
+    { href: '/#/services', label: 'Services' },
     { href: '#case-study', label: 'Our Work' },
     { href: '#team', label: 'About' },
     { href: '#contact', label: 'Contact' },
@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
               {serviceLinks.map((s) => (
                 <li key={s}>
                   <a
-                    href="/services"
+                    href="/#/services"
                     className="text-sm text-[#555] no-underline hover:text-[#F5F5F5] transition-colors cursor-none"
                   >
                     {s}

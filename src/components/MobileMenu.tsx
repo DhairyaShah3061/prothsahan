@@ -9,7 +9,7 @@ interface MobileMenuProps {
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   const links = [
     { href: '#hero', label: 'Home' },
-    { href: '/services', label: 'Services' },
+    { href: '/#/services', label: 'Services' },
     { href: '#case-study', label: 'Our Work' },
     { href: '#team', label: 'About' },
     { href: '#contact', label: 'Contact' },

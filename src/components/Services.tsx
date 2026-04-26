@@ -97,7 +97,7 @@ const Services: React.FC = () => {
 
         <Reveal delay={2} className="mt-12 flex justify-center">
           <a
-            href="/services"
+            href="/#/services"
             className="inline-flex items-center px-8 py-[14px] bg-[#FF1B1B] text-white rounded-full text-[15px] font-medium no-underline transition-all duration-200 hover:scale-[1.04] shadow-[0_0_20px_rgba(255,27,27,0.4),0_0_60px_rgba(255,27,27,0.15)] hover:shadow-[0_0_30px_rgba(255,27,27,0.6)] cursor-none"
           >
             Explore More

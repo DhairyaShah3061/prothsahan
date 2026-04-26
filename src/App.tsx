@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Problem from './components/Problem';
@@ -22,11 +22,34 @@ const SectionDivider: React.FC = () => (
   <div className="h-px bg-gradient-to-r from-transparent via-red-800/20 to-transparent" />
 );
 
+const getCurrentRoute = (): 'home' | 'services' => {
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+  const hash = window.location.hash;
+
+  if (path === '/services' || hash === '#/services') {
+    return 'services';
+  }
+
+  return 'home';
+};
+
 const App: React.FC = () => {
   const { isOpen, toggle, close } = useMobileMenu();
-  const path = window.location.pathname.replace(/\/$/, '') || '/';
+  const [route, setRoute] = useState<'home' | 'services'>(() => getCurrentRoute());
 
-  if (path === '/services') {
+  useEffect(() => {
+    const syncRoute = () => setRoute(getCurrentRoute());
+
+    window.addEventListener('hashchange', syncRoute);
+    window.addEventListener('popstate', syncRoute);
+
+    return () => {
+      window.removeEventListener('hashchange', syncRoute);
+      window.removeEventListener('popstate', syncRoute);
+    };
+  }, []);
+
+  if (route === 'services') {
     return <ServicesPage />;
   }
 
