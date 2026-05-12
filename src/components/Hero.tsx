@@ -1,33 +1,17 @@
 import React from 'react';
+import { InteractiveGradientBackground } from '@/components/ui/interactive-gradient-background';
 
 const Hero: React.FC = () => {
   return (
-    <section
-      id="hero"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden p-0"
-    >
-      {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,#1a0000_0%,#000000_60%)] z-0" />
-
-      {/* Glow */}
-      <div
-        className="absolute w-[600px] h-[600px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1]"
-        style={{
-          background: 'radial-gradient(circle, rgba(139,0,0,0.5) 0%, rgba(255,27,27,0.15) 40%, transparent 70%)',
-          animation: 'pulseGlow 4s ease-in-out infinite',
-        }}
-      />
-
-      {/* Noise */}
-      <div
-        className="absolute inset-0 z-[2] opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Content */}
-      <div className="relative z-[3] text-center max-w-[900px] px-6">
+    <section id="hero" className="relative overflow-hidden p-0">
+      <InteractiveGradientBackground
+        className="min-h-screen"
+        dark
+        intensity={0.85}
+        initialOffset={{ x: -80, y: 0 }}
+      >
+        <div className="min-h-screen flex items-center justify-center px-6">
+          <div className="relative z-[4] text-center max-w-[900px] px-6">
         <h1
           className="text-[#F5F5F5] mb-6 font-['Playfair_Display'] font-black leading-[1.15]"
           style={{
@@ -85,31 +69,27 @@ const Hero: React.FC = () => {
           )}
         </div>
       </div>
+        <div
+          className="absolute bottom-9 left-1/2 -translate-x-1/2 z-[4] text-[#6B6B6B]"
+          style={{ animation: 'bounce 2s ease-in-out infinite' }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
+        </div>
 
-      {/* Scroll Indicator */}
-      <div
-        className="absolute bottom-9 left-1/2 -translate-x-1/2 z-[3] text-[#6B6B6B]"
-        style={{ animation: 'bounce 2s ease-in-out infinite' }}
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M12 5v14M5 12l7 7 7-7" />
-        </svg>
-      </div>
-
-      <style>{`
-        @keyframes pulseGlow {
-          0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.7; }
-          50% { transform: translate(-50%,-50%) scale(1.15); opacity: 1; }
-        }
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes bounce {
-          0%, 100% { transform: translateX(-50%) translateY(0); }
-          50% { transform: translateX(-50%) translateY(8px); }
-        }
-      `}</style>
+        <style>{`
+          @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+          }
+        `}</style>
+        </div>
+      </InteractiveGradientBackground>
     </section>
   );
 };

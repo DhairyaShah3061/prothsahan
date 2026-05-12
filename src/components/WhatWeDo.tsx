@@ -230,4 +230,4 @@ const WhatWeDo: React.FC = () => {
   );
 };
 
-export default WhatWeDo;
+export default React.memo(WhatWeDo);

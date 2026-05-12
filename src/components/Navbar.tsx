@@ -14,10 +14,10 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, onMenuToggle }) => {
   useEffect(() => {
     const onScroll = () => {
       const current = window.scrollY;
-      if (current > 80) {
+      if (current > 8) {
         setScrolled(true);
-        if (current > lastScroll.current + 5) setHidden(true);
-        else if (current < lastScroll.current - 5) setHidden(false);
+        if (current > lastScroll.current + 3) setHidden(true);
+        else if (current < lastScroll.current - 3) setHidden(false);
       } else {
         setScrolled(false);
         setHidden(false);
@@ -104,4 +104,4 @@ const Navbar: React.FC<NavbarProps> = ({ isMenuOpen, onMenuToggle }) => {
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

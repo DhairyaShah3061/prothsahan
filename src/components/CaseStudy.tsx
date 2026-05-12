@@ -86,4 +86,4 @@ const CaseStudy: React.FC = () => {
   );
 };
 
-export default CaseStudy;
+export default React.memo(CaseStudy);
